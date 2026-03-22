@@ -1,0 +1,52 @@
+{
+  "name": "Java 8 Apache Spark Dev",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-maven",
+        "redhat.java",
+        "vscjava.vscode-java-debug",
+        "vscjava.vscode-java-test",
+        "gabrielbb.vscode-lombok"
+      ],
+      "settings": {
+        "java.jdt.ls.java.home": "/usr/lib/jvm/java-8-openjdk-amd64",
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-1.8",
+            "path": "/usr/lib/jvm/java-8-openjdk-amd64",
+            "default": true
+          }
+        ],
+        "java.compile.nullAnalysis.mode": "automatic",
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+  "forwardPorts": [
+    4040,
+    8080,
+    7077
+  ],
+  "portsAttributes": {
+    "4040": { "label": "Spark UI" },
+    "8080": { "label": "Spark Master Web UI" },
+    "7077": { "label": "Spark Master" }
+  },
+  "postCreateCommand": "mvn --version && spark-submit --version 2>&1 | head -5",
+  "remoteEnv": {
+    "JAVA_HOME": "/usr/lib/jvm/java-8-openjdk-amd64",
+    "SPARK_HOME": "/opt/spark",
+    "PATH": "${containerEnv:PATH}:/opt/spark/bin:/opt/spark/sbin"
+  },
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.m2,target=/home/devuser/.m2,type=bind,consistency=cached"
+  ],
+  "workspaceFolder": "/workspace"
+}
