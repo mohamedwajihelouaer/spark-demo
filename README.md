@@ -36,14 +36,11 @@ mvn clean package -DskipTests
 mvn install
 
 ```
-### Run
+### UIs
 
-```bash
-Spark UI
-Once your app is running, open your browser at http://localhost:4040 — the port is already forwarded by the devcontainer.json. You'll see the live Spark jobs, stages, and tasks dashboard there.
+http://localhost:4040
 http://localhost:7077
 http://localhost:8080
-```
 
 ```bash
 # start docker
