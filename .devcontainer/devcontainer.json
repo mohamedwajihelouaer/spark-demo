@@ -15,7 +15,8 @@
         "gabrielbb.vscode-lombok"
       ],
       "settings": {
-        "java.jdt.ls.java.home": "/usr/lib/jvm/java-8-openjdk-amd64",
+        /* REMOVED java.jdt.ls.java.home to avoid extension crashes */
+        
         "java.configuration.runtimes": [
           {
             "name": "JavaSE-1.8",
@@ -28,11 +29,7 @@
       }
     }
   },
-  "forwardPorts": [
-    4040,
-    8080,
-    7077
-  ],
+  "forwardPorts": [4040, 8080, 7077],
   "portsAttributes": {
     "4040": { "label": "Spark UI" },
     "8080": { "label": "Spark Master Web UI" },
@@ -45,8 +42,8 @@
     "PATH": "${containerEnv:PATH}:/opt/spark/bin:/opt/spark/sbin"
   },
   "mounts": [
-    "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.m2,target=/home/devuser/.m2,type=bind,consistency=cached"
-  ],
+  "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+  "source=maven-cache,target=/home/devuser/.m2,type=volume"
+],
   "workspaceFolder": "/workspace"
 }
